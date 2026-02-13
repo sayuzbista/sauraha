@@ -1,22 +1,42 @@
 <template>
   <nav class="navbar">
     <div class="logo">Admin Panel</div>
+
     <ul class="nav-links">
       <li @click="$router.push('/admin/dashboard')">Dashboard</li>
       <li @click="$router.push('/admin/services')">Services</li>
+      <li @click="$router.push('/admin/service-requests')">Service Requests</li>
+
+
+      <!-- Vendor Info Dropdown -->
+      <li class="dropdown">
+        <span>Vendor Info ▾</span>
+        <ul class="dropdown-menu">
+          <li @click="$router.push('/admin/vendors')">
+            Vendor Requests
+          </li>
+          <li @click="$router.push('/admin/vendors/accepted')">
+            Accepted Vendors
+          </li>
+          <li @click="$router.push('/admin/vendors/rejected')">
+            Rejected Vendors
+          </li>
+        </ul>
+      </li>
+
       <li @click="logout">Logout</li>
     </ul>
   </nav>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-const router = useRouter();
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const logout = () => {
-  localStorage.removeItem('adminToken');
-  router.push('/admin/login');
-};
+  localStorage.removeItem('adminToken')
+  router.push('/')
+}
 </script>
 
 <style scoped>
@@ -46,26 +66,36 @@ const logout = () => {
   font-weight: 600;
   position: relative;
   padding-bottom: 0.25rem;
-  transition: all 0.3s ease;
 }
 
 .nav-links li:hover {
   color: #3b82f6;
 }
 
-.nav-links li::after {
-  content: '';
-  display: block;
-  width: 0%;
-  height: 2px;
-  background: #3b82f6;
-  transition: width 0.3s;
+/* Dropdown */
+.dropdown-menu {
+  display: none;
   position: absolute;
-  bottom: 0;
+  top: 120%;
   left: 0;
+  background: #111827;
+  border-radius: 6px;
+  min-width: 180px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  z-index: 100;
 }
 
-.nav-links li:hover::after {
-  width: 100%;
+.dropdown-menu li {
+  padding: 10px 15px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li:hover {
+  background: #1f2937;
+  color: #3b82f6;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 </style>

@@ -113,12 +113,13 @@
         password: password.value,
       })
   
-      localStorage.setItem('token', response.data.token)
-      successMessage.value = 'Login successful! Redirecting...'
-  
-      setTimeout(() => {
-        router.push('/home') // adjust as needed
-      }, 1500)
+      localStorage.setItem('auth_token', response.data.token)  // <-- use 'auth_token' to match router guard
+successMessage.value = 'Login successful! Redirecting...'
+
+setTimeout(() => {
+  router.push({ name: 'Home' })  // <-- use named route
+}, 1500)
+
     } catch (err) {
       error.value = err.response?.data?.message || 'Login failed'
     }
@@ -168,7 +169,7 @@
   
   .card {
     background-color: #1f2937; /* Tailwind gray-800 */
-    padding: 2rem;
+    padding: 5rem;
     border-radius: 12px;
     box-shadow: 0 10px 15px -3px rgba(0, 122, 255, 0.5);
     width: 100%;

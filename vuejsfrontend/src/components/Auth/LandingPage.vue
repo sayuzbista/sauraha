@@ -4,7 +4,7 @@
     <!-- NAVBAR -->
     <nav class="navbar">
       <div class="logo">Ghumau Sauraha</div>
-      <ul class="nav-links">
+      <ul class="nav-links">  
         <li><a @click.prevent="redirectToLogin">Home</a></li>
         <li><a @click.prevent="redirectToLogin">Services</a></li>
         <li><a @click.prevent="redirectToLogin">Packages</a></li>
@@ -118,14 +118,15 @@ const scrollToServices = () => servicesSection.value.scrollIntoView({ behavior: 
 const handleBooking = (serviceId) => {
   const token = localStorage.getItem('auth_token');
   if (!token) router.push({ name: 'Login' });
-  else router.push({ name: 'Booking', params: { serviceId } });
+  else router.push({ name: 'Login', params: { serviceId } });
 };
 
+// Vendor routing updated
 const goToVendorLogin = () => router.push({ name: 'VendorLogin' });
 const goToVendorRegister = () => router.push({ name: 'VendorRegister' });
+
 const goToAdmin = () => router.push({ name: 'AdminLogin' });
 const goToRegister = () => router.push({ name: 'Register' });
-
 const redirectToLogin = () => router.push({ name: 'Login' });
 
 const submitEmail = () => {
@@ -140,7 +141,14 @@ onMounted(() => fetchServices());
 <style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
 
-.landing-container { font-family: 'Poppins', sans-serif; background-color:#0a0a0a; color:white; display:flex; flex-direction:column; min-height:100vh; }
+.landing-container {
+  font-family: 'Poppins', sans-serif;
+  background-color:#0a0a0a;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
 
 /* NAVBAR */
 .navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 4rem; background-color:#111827; }
@@ -154,18 +162,34 @@ onMounted(() => fetchServices());
 .admin-icon:hover { color:#22c55e; }
 
 /* HERO */
-.hero { display:flex; height:70vh; background:url('/images/sauraha-hero.jpg') center/cover no-repeat; padding:4rem; align-items:center; justify-content:space-between; gap:2rem; }
-.hero-left { flex:1; }
+.hero {
+  display:flex;
+  height:70vh;
+  background: url('@/assets/tiger.png') center/cover no-repeat;
+  padding:4rem;
+  align-items:center;
+  justify-content:space-between;
+  gap:2rem;
+}
+
+/* Overlay for readability */
+.hero-left, .hero-right {
+  background-color: rgba(0,0,0,0.4);
+  padding:1rem;
+  border-radius:12px;
+}
+
 .hero-left h1 span { color:#22c55e; }
 .hero-left p { max-width:500px; margin:1rem 0; }
 .explore-btn { padding:0.75rem 1.5rem; background-color:#22c55e; border:none; border-radius:8px; font-weight:600; cursor:pointer; margin-top:1rem; }
+
 .adventure-animate { margin-top:2rem; display:flex; justify-content:center; animation:bounce 2s infinite; }
 .adventure-btn { background-color:#22c55e; border:none; padding:0.8rem 1.5rem; border-radius:10px; font-size:1.2rem; font-weight:bold; color:white; cursor:pointer; display:flex; align-items:center; gap:0.5rem; }
 .adventure-btn .arrow { font-size:1.5rem; }
 @keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(10px);} }
 
 /* Vendor Panel */
-.hero-right { flex:1; background-color:rgba(255,255,255,0.05); padding:2rem; border-radius:12px; text-align:center; }
+.hero-right { flex:1; text-align:center; }
 .vendor-buttons { display:flex; flex-direction:column; gap:1rem; margin-top:1rem; }
 .vendor-buttons button { padding:0.75rem 1.25rem; border:none; border-radius:8px; background-color:#22c55e; cursor:pointer; color:white; font-weight:600; }
 .vendor-buttons button:hover { background-color:#16a34a; }
